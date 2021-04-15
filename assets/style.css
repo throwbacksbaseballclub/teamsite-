@@ -1,0 +1,112 @@
+body {
+    font: 400 15px/1.8 Lato, sans-serif;
+    color: #777;
+  }
+  h3, h4 {
+    margin: 10px 0 30px 0;
+    letter-spacing: 10px;      
+    font-size: 20px;
+    color: #111;
+  }
+  .container {
+    padding: 80px 120px;
+  }
+  .person {
+    border: 10px solid transparent;
+    margin-bottom: 25px;
+    width: 100%;
+    height: 400px;
+    opacity: 0.7;
+  }
+  .person:hover {
+    border-color: #df3030;
+  }
+  .carousel-item{
+    width: 100%; /*width you want*/
+    height: 500px; /*height you want*/
+    overflow: hidden;
+}
+.carousel-item img{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+  .carousel-inner img {
+
+    width: 100%; /* Set width to 100% */
+    margin: auto;
+  }
+  .carousel-caption h3 {
+    color: #fff !important;
+  }
+  @media (max-width: 600px) {
+    .carousel-caption {
+      display: none; /* Hide the carousel text when the screen is less than 600 pixels wide */
+    }
+  }
+  .btn {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #ffffff;
+    border-radius: 0;
+    transition: .2s;
+  }
+  .btn:hover, .btn:focus {
+    border: 1px solid #333;
+    background-color: #fff;
+    color: #000;
+  }
+  .nav-tabs li a {
+    color: rgb(14, 14, 14);
+  }
+  .navbar {
+    font-family: Montserrat, sans-serif;
+    margin-bottom: 0;
+    background-color: #1f1d1d;
+    border: 0;
+    font-size: 11px !important;
+    letter-spacing: 4px;
+    opacity: 0.9;
+  }
+  .navbar li a, .navbar .navbar-brand { 
+    color: #d5d5d5 !important;
+  }
+  .navbar-nav li a:hover {
+    color: #fff !important;
+  }
+  .navbar-nav li.active a {
+    color: #fff !important;
+    background-color: #29292c !important;
+  }
+  .navbar-default .navbar-toggle {
+    border-color: transparent;
+  }
+  footer {
+    background-color: #2d2d30;
+    color: #f5f5f5;
+    padding: 32px;
+    
+  }
+  footer a {
+    color: #f5f5f5;
+  }
+  footer a:hover {
+    color: rgb(214, 214, 214);
+    text-decoration: none;
+  }  
+  .form-control {
+    border-radius: 0;
+  }
+  textarea {
+    resize: none;
+  }
+  .responsiveCal {
+ 
+    position: relative; padding-bottom: 100%; height: 0; overflow: hidden;
+     }
+     
+    .responsiveCal iframe {
+     
+    position: absolute; top:0; left: 0; width: 100%; height: 100%;
+     
+    }

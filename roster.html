@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+  <title>Baseball 2.0</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css'>
+        <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js'></script>
+        <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    </head>
+
+<style>
+    *{
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+h1{
+  font-size: 2.5rem;
+  font-family: 'Montserrat';
+  font-weight: normal;
+  color: #444;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.wrapper{
+  width: 90%;
+  margin: 0 auto;
+  max-width: 80rem;
+}
+
+.cols{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.col{
+  width: calc(25% - 2rem);
+  margin: 1rem;
+  cursor: pointer;
+}
+
+.container{
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+	-webkit-perspective: 1000px;
+	        perspective: 1000px;
+}
+
+.front,
+.back{
+  background-size: cover;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.25);
+  border-radius: 10px;
+	background-position: center;
+	-webkit-transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+	transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+	-o-transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+	transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+	transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1), -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+	-webkit-backface-visibility: hidden;
+	        backface-visibility: hidden;
+	text-align: center;
+	min-height: 280px;
+	height: auto;
+	border-radius: 10px;
+	color: #fff;
+	font-size: 1.5rem;
+}
+
+.back{
+  background: #cedce7;
+  background: -webkit-linear-gradient(45deg,  #cedce7 0%,#596a72 100%);
+  background: -o-linear-gradient(45deg,  #cedce7 0%,#596a72 100%);
+  background: linear-gradient(45deg,  #cedce7 0%,#596a72 100%);
+}
+
+.front:after{
+	position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    content: '';
+    display: block;
+    opacity: .6;
+    background-color: #000;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+    border-radius: 10px;
+}
+.container:hover .front,
+.container:hover .back{
+    -webkit-transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    -o-transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1), -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.back{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.inner{
+    -webkit-transform: translateY(-50%) translateZ(60px) scale(0.94);
+            transform: translateY(-50%) translateZ(60px) scale(0.94);
+    top: 50%;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    padding: 2rem;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    outline: 1px solid transparent;
+    -webkit-perspective: inherit;
+            perspective: inherit;
+    z-index: 2;
+}
+
+.container .back{
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+}
+
+.container .front{
+    -webkit-transform: rotateY(0deg);
+            transform: rotateY(0deg);
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+}
+
+.container:hover .back{
+  -webkit-transform: rotateY(0deg);
+          transform: rotateY(0deg);
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+
+.container:hover .front{
+  -webkit-transform: rotateY(-180deg);
+          transform: rotateY(-180deg);
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+
+.front .inner p{
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.front .inner p:after{
+  content: '';
+  width: 4rem;
+  height: 2px;
+  position: absolute;
+  background: #C6D4DF;
+  display: block;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  bottom: -.75rem;
+}
+
+.front .inner span{
+  color: rgba(255,255,255,0.7);
+  font-family: 'Montserrat';
+  font-weight: 300;
+}
+
+@media screen and (max-width: 64rem){
+  .col{
+    width: calc(33.333333% - 2rem);
+  }
+}
+
+@media screen and (max-width: 48rem){
+  .col{
+    width: calc(50% - 2rem);
+  }
+}
+
+@media screen and (max-width: 32rem){
+  .col{
+    width: 100%;
+    margin: 0 0 2rem 0;
+  }
+}
+</style>
+
+<body>
+    <div class="wrapper">
+        <h1>2021 ROSTER</h1>
+        <div class="cols">
+<!-- Player 1 -->
+                  <div class="col" ontouchstart="this.classList.toggle('hover');">
+                      <div class="container">
+                          <div class="front" style="background-image: url(./assets/images/throwbacks.png)">
+                              <div class="inner">
+                                  <h2>#1</h2>
+                                  <p>Caden Cutrell</p>
+                    <span>C / 1B</span>
+                              </div>
+                          </div>
+                          <div class="back">
+                              <div class="inner">
+                                <p>Beech High School, 2021<br><br>Committed:<br>Union University (TN)<br><br>6'1 / 190lbs</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+<!-- Player 2 -->
+                  <div class="col" ontouchstart="this.classList.toggle('hover');">
+                      <div class="container">
+                          <div class="front" style="background-image: url(./assets/images/throwbacks.png)">
+                              <div class="inner">
+                                <h2>#2</h2>
+                                  <p>Justin Whitman</p>
+                    <span>RHP</span>
+                              </div>
+                          </div>
+                          <div class="back">
+                              <div class="inner">
+                                  <p>Springfield High School, 2020<br><br>Committed:<br>Freed Hardeman (TN)<br><br>6'0 / 170lbs</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+<!-- Player 3 -->
+                  <div class="col" ontouchstart="this.classList.toggle('hover');">
+                      <div class="container">
+                          <div class="front" style="background-image: url(./assets/images/throwbacks.png)">
+                              <div class="inner">
+                                <h2>#3</h2>
+                                  <p>Connor Irvin</p>
+                                  <span>OF / 2B</span>
+                              </div>
+                          </div>
+                          <div class="back">
+                              <div class="inner">
+                                  <p>Nolensville High School, 2021<br><br>Uncommitted<br><br>5'10 / 150lbs</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+<!-- Player 4 -->
+                  <div class="col" ontouchstart="this.classList.toggle('hover');">
+                      <div class="container">
+                          <div class="front" style="background-image: url(./assets/images/throwbacks.png)">
+                              <div class="inner">
+                                <h2>#4</h2>
+                                  <p>Preston Paquette</p>
+                                <span>INF / OF</span>
+                              </div>
+                          </div>
+                          <div class="back">
+                              <div class="inner">
+                                  <p>Lipscomb Academy, 2022<br><br>Uncommitted<br><br>5'7 / 150lbs</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+<!-- Player 5 -->
+                  <div class="col" ontouchstart="this.classList.toggle('hover');">
+                      <div class="container">
+                          <div class="front" style="background-image: url(./assets/images/throwbacks.png">
+                              <div class="inner">
+                                <h2>#7</h2>
+                                  <p>Carter Waltz</p>
+                               <span>LHP</span>
+                              </div>
+                          </div>
+                          <div class="back">
+                              <div class="inner">
+                                  <p>Springfield High School, 2023<br><br>Uncommitted<br><br>5'10 / 150lbs</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+<!-- Player 6-->
+                  <div class="col" ontouchstart="this.classList.toggle('hover');">
+                      <div class="container">
+                          <div class="front" style="background-image: url(./assets/images/throwbacks.png)">
+                              <div class="inner">
+                                <h2>#9</h2>
+                                  <p>Cade Ross</p>
+                                  <span>INF</span>
+                              </div>
+                          </div>
+                          <div class="back">
+                              <div class="inner">
+                                  <p>Clarksville High School, 2021<br><br>Committed:<br>Volunteer State (TN)<br><br>5'11 / 165lbs</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+<!-- Player 7 -->
+                  <div class="col" ontouchstart="this.classList.toggle('hover');">
+                      <div class="container">
+                          <div class="front" style="background-image: url(./assets/images/throwbacks.png)">
+                              <div class="inner">
+                                <h2>#10</h2>
+                                  <p>Walker Smith</p>
+                         <span>INF</span>
+                              </div>
+                          </div>
+                          <div class="back">
+                              <div class="inner">
+                                  <p>Clarksville High School, 2021<br><br>Uncommitted<br><br>5'11 / 175lbs</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+<!-- Player 8 -->
+                  <div class="col" ontouchstart="this.classList.toggle('hover');">
+                      <div class="container">
+                          <div class="front" style="background-image: url(./assets/images/throwbacks.png)">
+                              <div class="inner">
+                                <h2>#11</h2>
+                                  <p>Garrett Hargrove</p>
+                    <span>UTL / RHP</span>
+                              </div>
+                          </div>
+                          <div class="back">
+                              <div class="inner">
+                                  <p>White House Heritage High School, 2021<br><br>Uncommitted<br><br>5'9 / 155lbs</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+<!-- Player 9 -->
+                  <div class="col" ontouchstart="this.classList.toggle('hover');">
+                    <div class="container">
+                        <div class="front" style="background-image: url(./assets/images/throwbacks.png)">
+                            <div class="inner">
+                                <h2>#12</h2>
+                                <p>Garrison Goins</p>
+                  <span>OF</span>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <div class="inner">
+                              <p>Clarksville High School, 2021<br><br>Uncommitted<br><br>5'11 / 165lbs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- Player 10 -->
+                <div class="col" ontouchstart="this.classList.toggle('hover');">
+                    <div class="container">
+                        <div class="front" style="background-image: url(./assets/images/throwbacks.png)">
+                            <div class="inner">
+                                <h2>#13</h2>
+                                <p>Austin Williams</p>
+                  <span>OF / LHP</span>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <div class="inner">
+                              <p>Sycamore High School, 2022<br><br>Uncommitted<br><br>5'9 / 160lbs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- Player 11 -->
+                <div class="col" ontouchstart="this.classList.toggle('hover');">
+                    <div class="container">
+                        <div class="front" style="background-image: url(./assets/images/throwbacks.png)">
+                            <div class="inner">
+                                <h2>#14</h2>
+                                <p>Ellis Hurt</p>
+                  <span>OF / INF / RHP</span>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <div class="inner">
+                              <p>Harpeth High School, 2022<br><br>Uncommitted<br><br>6'0 / 180lbs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- Player 12 -->
+                <div class="col" ontouchstart="this.classList.toggle('hover');">
+                    <div class="container">
+                        <div class="front" style="background-image: url(./assets/images/throwbacks.png)">
+                            <div class="inner">
+                                <h2>#15</h2>
+                                <p>Riley Palmer</p>
+                  <span>INF</span>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <div class="inner">
+                              <p> Sycamore High School, 2022<br><br>Uncommitted<br><br>5'10 / 165lbs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- Player 13 -->
+                <div class="col" ontouchstart="this.classList.toggle('hover');">
+                    <div class="container">
+                        <div class="front" style="background-image: url(./assets/images/throwbacks.png)">
+                            <div class="inner">
+                                <h2>#17</h2>
+                                <p>Sam Galbraith</p>
+                  <span>1B / RHP</span>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <div class="inner">
+                              <p>Homeschool, 2020<br><br>Uncommitted<br><br>6'7 / 230lbs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- Player 14 -->
+                <div class="col" ontouchstart="this.classList.toggle('hover');">
+                    <div class="container">
+                        <div class="front" style="background-image: url(./assets/images/throwbacks.png)">
+                            <div class="inner">
+                                <h2>#20</h2>
+                                <p>Tommy Grimes</p>
+                  <span>RHP</span>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <div class="inner">
+                              <p>Rossview High School, 2021<br><br>Uncommitted<br><br>5'11 / 180lbs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- Player 15 -->
+                <div class="col" ontouchstart="this.classList.toggle('hover');">
+                    <div class="container">
+                        <div class="front" style="background-image: url(./assets/images/throwbacks.png)">
+                            <div class="inner">
+                                <h2>#22</h2>
+                                <p>Ethan Huddleston</p>
+                  <span>INF / RHP</span>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <div class="inner">
+                              <p>Gallatin High School, 2020<br><br>Committed:<br>Volunteer State (TN)<br><br>5'11 / 180lbs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- Player 16 -->
+                <div class="col" ontouchstart="this.classList.toggle('hover');">
+                    <div class="container">
+                        <div class="front" style="background-image: url(./assets/images/throwbacks.png)">
+                            <div class="inner">
+                                <h2>#23</h2>
+                                <p>Matthew Holliman</p>
+                  <span>LHP</span>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <div class="inner">
+                              <p>Greenbrier High School, 2022<br><br>Uncommitted<br><br>5'11 / 230lbs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- Player 17 -->
+                <div class="col" ontouchstart="this.classList.toggle('hover');">
+                    <div class="container">
+                        <div class="front" style="background-image: url(./assets/images/throwbacks.png)">
+                            <div class="inner">
+                                <h2>#24</h2>
+                                <p>Ethan Bagget</p>
+                  <span>1B / RHP</span>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <div class="inner">
+                              <p>Clarksville High School, 2021<br><br>Committed:<br>Covenant College (GA)<br><br>6'1 / 180lbs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- Player 18 -->
+                <div class="col" ontouchstart="this.classList.toggle('hover');">
+                    <div class="container">
+                        <div class="front" style="background-image: url(./assets/images/throwbacks.png)">
+                            <div class="inner">
+                                <h2>#27</h2>
+                                <p>Austin Moses</p>
+                  <span>LHP</span>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <div class="inner">
+                              <p>Springfield High School, 2022<br><br>Uncommitted<br><br>6'1 / 175lbs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- Player 19 -->
+                <div class="col" ontouchstart="this.classList.toggle('hover');">
+                    <div class="container">
+                        <div class="front" style="background-image: url(./assets/images/throwbacks.png)">
+                            <div class="inner">
+                                <h2>#30</h2>
+                                <p>Garret Giles</p>
+                  <span>RHP</span>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <div class="inner">
+                              <p>Franklin High School, 2022<br><br>Uncommitted<br><br>5'11 / 170lbs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- Player 20 -->
+                <div class="col" ontouchstart="this.classList.toggle('hover');">
+                    <div class="container">
+                        <div class="front" style="background-image: url(./assets/images/throwbacks.png)">
+                            <div class="inner">
+                                <h2>#34</h2>
+                                <p>Evan Carney</p>
+                  <span>1B / 3B / RHP</span>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <div class="inner">
+                              <p>Christ Presbyterian Academy, 2022<br><br>Uncommitted<br><br>6'5 / 255lbs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+              </div>
+       </div>
+</body>
+
+</html>
